@@ -1,0 +1,11 @@
+@import "componentes/variables";
+
+body {
+  background-color: $color;
+  margin: 50px auto 0;
+  text-align: center;
+  color: white;
+}
+.flex {
+  display: flex;
+}

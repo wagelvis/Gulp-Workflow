@@ -15,47 +15,47 @@ gulp.task('default', ['styles', 'javascript', 'htmlmin'], ()=>
        server: "./dist"
     }),
 
-    gulp.watch('./lib/*.js', ['javascript']).on('change', browserSync.reload),
-    gulp.watch('./scss/**/*.scss', ['styles']),
-    gulp.watch('./pug/**/*.pug', ['pug']),
-    gulp.watch('./html_src/*.html', ['htmlmin']),
-    gulp.watch('./dist/*.html').on('change', browserSync.reload)
+    gulp.watch('sources/lib/*.js', ['javascript']).on('change', browserSync.reload),
+    gulp.watch('sources/scss/**/*.scss', ['styles']),
+    gulp.watch('sources/pug/**/*.pug', ['pug']),
+    gulp.watch('sources/html_src/*.html', ['htmlmin']),
+    gulp.watch('dist/*.html').on('change', browserSync.reload)
 
 );
 
 gulp.task('javascript', function () {
-    gulp.src('./lib/*.js')
+    gulp.src('sources/lib/*.js')
         .pipe(uglify())
-        .pipe(gulp.dest('./dist/js'))
+        .pipe(gulp.dest('dist/js'))
 });
 
 gulp.task('styles', ()=>
-    gulp.src('./scss/**/*.scss')
+    gulp.src('sources/scss/**/*.scss')
         .pipe(sass())
         .pipe(autoprefixer())
         .pipe(cssnano())
-        .pipe(gulp.dest('./dist/css'))
+        .pipe(gulp.dest('dist/css'))
         .pipe(browserSync.stream())
 );
 
 gulp.task('pug', function buildHTML() {
-    return gulp.src('./pug/**/*.pug')
+    return gulp.src('sources/pug/**/*.pug')
         .pipe(pug({
             pretty: true
         }))
-        .pipe(gulp.dest('./html_src'))
+        .pipe(gulp.dest('sources/html_src'))
 });
 
 gulp.task('htmlmin', function() {
-    return gulp.src('./html_src/*.html')
+    return gulp.src('sources/html_src/*.html')
         .pipe(htmlmin({collapseWhitespace: true}))
-        .pipe(gulp.dest('./dist'));
+        .pipe(gulp.dest('dist'));
 });
 
 // Tareas que no requieren ser ejecutadas en tiempo real
 
 gulp.task('imagemin', () =>
-gulp.src('./img_src/*')
+gulp.src('sources/img_src/*')
     .pipe(imagemin())
-    .pipe(gulp.dest('./dist/img'))
+    .pipe(gulp.dest('dist/img'))
 );

@@ -6,7 +6,7 @@
     }
 
     function saludar(nombre) {
-        console.info(nombre, ', Testing javascript !');
+        console.info(nombre, ', Testing javascript ... !');
     }
 
     saludar(nombrar('Wilmer'));

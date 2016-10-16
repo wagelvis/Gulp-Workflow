@@ -39,7 +39,7 @@ gulp.task('styles', ()=>
 );
 
 gulp.task('pug', function buildHTML() {
-    return gulp.src('sources/pug/**/*.pug')
+    return gulp.src('sources/pug/*.pug')
         .pipe(pug({
             pretty: true
         }))

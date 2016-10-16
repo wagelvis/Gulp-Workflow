@@ -1,10 +1,14 @@
 doctype html
 html(lang="es")
-    meta(charset="utf-8")
-    link(rel="stylesheet" href="css/main.css")
+    include partials/_head
     body
-        h1 Flujo de Trabajo con Gulp
-        p Refactorización de Directorios
-        p Testing ...
 
-        script(src="js/main.js")
+        include partials/_header
+
+        main
+            p Refactorización de Directorios
+            p Testing ...
+
+        include partials/_footer
+
+    include partials/_scripts

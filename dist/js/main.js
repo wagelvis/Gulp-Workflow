@@ -1,1 +1,1 @@
-"use strict";!function(){function n(n){return n}function i(n){console.info(n,", Bienvenido !")}i(n("Wilmer"))}();
+"use strict";!function(){function n(n){return n}function i(n){console.info(n,", Testing javascript !")}i(n("Wilmer"))}();

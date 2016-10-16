@@ -3,7 +3,6 @@
 const gulp = require('gulp'),
       sass = require('gulp-sass'),
       uglify = require('gulp-uglify'),
-      pump = require('pump'),
       cssnano = require('gulp-cssnano'),
       autoprefixer = require('gulp-autoprefixer'),
       imagemin = require('gulp-imagemin'),
@@ -11,30 +10,26 @@ const gulp = require('gulp'),
       htmlmin = require('gulp-htmlmin'),
       browserSync = require('browser-sync').create();
 
-gulp.task('serve', ['sass'], ()=>
+gulp.task('default', ['styles', 'javascript', 'htmlmin'], ()=>
     browserSync.init({
        server: "./dist"
     }),
 
-    gulp.watch('./lib/*.js', ['compress']),
-    gulp.watch('./scss/**/*.scss', ['sass']),
+    gulp.watch('./lib/*.js', ['javascript']).on('change', browserSync.reload),
+    gulp.watch('./scss/**/*.scss', ['styles']),
     gulp.watch('./pug/**/*.pug', ['pug']),
-    gulp.watch('./html_src/*.html', ['minify']),
+    gulp.watch('./html_src/*.html', ['htmlmin']),
     gulp.watch('./dist/*.html').on('change', browserSync.reload)
 
 );
 
-gulp.task('compress', function (cb) {
-    pump([
-            gulp.src('./lib/*.js'),
-            uglify(),
-            gulp.dest('./dist/js')
-        ],
-        cb
-    );
+gulp.task('javascript', function () {
+    gulp.src('./lib/*.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('./dist/js'))
 });
 
-gulp.task('sass', ()=>
+gulp.task('styles', ()=>
     gulp.src('./scss/**/*.scss')
         .pipe(sass())
         .pipe(autoprefixer())
@@ -51,13 +46,11 @@ gulp.task('pug', function buildHTML() {
         .pipe(gulp.dest('./html_src'))
 });
 
-gulp.task('minify', function() {
+gulp.task('htmlmin', function() {
     return gulp.src('./html_src/*.html')
         .pipe(htmlmin({collapseWhitespace: true}))
         .pipe(gulp.dest('./dist'));
 });
-
-gulp.task('default', ['serve']);
 
 // Tareas que no requieren ser ejecutadas en tiempo real
 

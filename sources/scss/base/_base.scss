@@ -1,0 +1,21 @@
+body {
+  height: 100vh;
+  background-color: $color;
+  color: white;
+}
+header {
+
+}
+main {
+
+  p:first-of-type {
+    @include margin(0px, 50px);
+  }
+  p:last-of-type {
+    @include margin(100px, auto);
+  }
+}
+
+footer {
+
+}
